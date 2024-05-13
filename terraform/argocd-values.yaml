@@ -1,0 +1,5 @@
+---
+configs:
+  secret:
+  #This is bcrypt hashed
+    argocdServerAdminPassword: "${argocdpass}"
