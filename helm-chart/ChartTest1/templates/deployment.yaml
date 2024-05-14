@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.name }}
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.name }}
@@ -19,5 +19,5 @@ spec:
         - name: {{ .Values.name }}
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           ports:
-            - containerPort: 80
+            - containerPort: {{ .Values.service.port }}
               name: {{ .Values.name }}

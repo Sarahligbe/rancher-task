@@ -4,9 +4,10 @@ kind: Service
 metadata:
   name: {{ .Values.name }}
 spec:
+  type: {{ .Values.service.type }}
   selector:
     app: {{ .Values.name }}
   ports:
-    - port: 80
+    - port: 8080
       name: {{ .Values.name }}
-      targetPort: 80
+      targetPort: {{ .Values.service.port }}
