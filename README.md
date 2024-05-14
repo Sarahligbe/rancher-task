@@ -17,7 +17,7 @@ The **terraform/** directory contains the terraform files to install argocd and 
 2. Set your argocd password as a terraform environment variable so terraform can source the **argocdpass** variable from it
 ```bash
 export $ARGO_PASSWORD=""
-export TF_VAR_argopass=$(htpasswd -nbBC 10 "" $ARGO_PASS | tr -d ':\n' | sed 's/$2y/$2a/')
+export TF_VAR_argocdpass=$(htpasswd -nbBC 10 "" $ARGO_PASSWORD | tr -d ':\n' | sed 's/$2y/$2a/')
 ```
 The password is bcrypt hashed
 3. cd into the **terraform/** directory and run
