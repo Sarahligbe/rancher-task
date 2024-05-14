@@ -13,11 +13,7 @@ resource "helm_release" "argocd-helm" {
   }
 }
 
-data "kubectl_filename_list" "manifests" {
-  pattern = "../rancher/applications/*.yaml"
-}
-
+#apply the rancher argocd main config file
 resource "kubectl_manifest" "application" {
-  count = length(data.kubectl_filename_list.manifests.matches)
-  yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
+  yaml_body = file(../rancher/root.yaml)
 }
