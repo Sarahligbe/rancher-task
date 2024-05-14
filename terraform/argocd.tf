@@ -7,5 +7,17 @@ resource "helm_release" "argocd-helm" {
   create_namespace = true
   timeout = 1000
 
-  values = [templatefile("argo-cd-values.yaml", {argocdpass = "${var.argocdpass}"})]
+  set {
+    name = "configs.secret.argocdAdminPassword"
+    value = var.argocdpass
+  }
+}
+
+data "kubectl_filename_list" "manifests" {
+  pattern = "../rancher/applications/*.yaml"
+}
+
+resource "kubectl_manifest" "application" {
+  count = length(data.kubectl_filename_list.manifests.matches)
+  yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
 }
