@@ -10,7 +10,8 @@ The **terraform/** directory contains the terraform files to install argocd and 
 ## Pre-requisites
 1. Two VirtualBox VMs
 2. Rancher installed in the first VM
-3. Terraform installed on the second VM
+3. K3s cluster installed on the second VM using Rancher
+4. Terraform installed on the second VM
 
 ## Running the project
 1. clone the repository
