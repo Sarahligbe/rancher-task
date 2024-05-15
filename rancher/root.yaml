@@ -10,7 +10,7 @@ spec:
     repoURL: https://github.com/Sarahligbe/rancher-task.git
     targetRevision: HEAD
   destination:
-    namespace: argocd
+    namespace: default
     server: https://kubernetes.default.svc
   syncPolicy: 
     automated:
