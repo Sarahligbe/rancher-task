@@ -8,23 +8,13 @@ resource "helm_release" "argocd-helm" {
   timeout = 1000
 
   set {
-    name = "configs.secret.argocdAdminPassword"
-    value = var.argocdpass
-  }
-
-  set {
     name = "server.service.type"
     value = "NodePort"
   }
 }
 
-data "kubectl_filename_list" "manifests" {
-    pattern = "../rancher/root.yaml"
-}
-
 resource "kubectl_manifest" "test" {
-    count     = length(data.kubectl_filename_list.manifests.matches)
-    yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
+  yaml_body = "${file("../rancher/root.yaml")}"
 
-    depends_on = [helm_release.argocd-helm]
+  depends_on = [helm_release.argocd-helm]
 }
