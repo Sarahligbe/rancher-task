@@ -11,6 +11,11 @@ resource "helm_release" "argocd-helm" {
     name = "configs.secret.argocdAdminPassword"
     value = var.argocdpass
   }
+
+  set {
+    name = "server.service.type"
+    value = "NodePort"
+  }
 }
 
 data "kubectl_filename_list" "manifests" {
@@ -20,4 +25,6 @@ data "kubectl_filename_list" "manifests" {
 resource "kubectl_manifest" "test" {
     count     = length(data.kubectl_filename_list.manifests.matches)
     yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
+
+    depends_on = [helm_release.argocd-helm]
 }
